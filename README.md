@@ -64,24 +64,6 @@ ECM_dashboard/
 
 ---
 
-## Running it
-
-Because browsers block `fetch()` from `file://`, the data is delivered as a
-`<script>` (`data/dashboard_data.js`), so you can **open `index.html` directly**.
-The interactive Leaflet map still needs internet for basemap tiles; to serve
-locally instead:
-
-```bash
-python3 -m http.server 8801   # then open http://localhost:8801/index.html
-```
-
-Deployed via GitHub Pages, serving directly from the `main` branch root (no
-build step, no GitHub Actions). Pages redeploys automatically whenever `main`
-is pushed — there is no scheduled or automated re-sync; updating is always the
-manual sync → commit → push sequence below.
-
----
-
 ## Data sources & licence
 
 Sources (via the manuscript pipeline): GlobalFungi v5, NCBI GenBank, UNITE v10,
