@@ -145,45 +145,29 @@ const DATA_SOURCES = [
 /* ---- about + updating ----------------------------------------------------- */
 function buildAbout(D) {
   const sec = document.getElementById("about");
-  sec.appendChild(el("h2.about-h", { text: "About & updating" }));
+  sec.appendChild(el("h2.about-h", { text: "About" }));
 
   // Contact address assembled at runtime so the literal string is not sitting in
   // the page source for scrapers; it is displayed in a spaced-out form too.
   const eUser = "jason.pither", eDom = "ubc.ca";
 
-  sec.appendChild(el("div.detail-grid", null, [
-    card("What this is", el("div.prose", {
-      html:
-        `<p>A companion to <i>“An assessment of biodiversity data shortfalls for ectomycorrhizal ` +
-        `(EcM) fungi in Canada”</i> (Eckert et al.). It reports the seven biodiversity data ` +
-        `shortfalls of Hortal et al. (2015) for EcM fungi in Canada.</p>` +
-        `<p>Every value shown is read from the same pipeline outputs that generate the ` +
-        `manuscript's statistics, tables and figures, and is refreshed each time the dashboard is ` +
-        `synced. Text on the dashboard describes what each item shows; it does not characterise ` +
-        `the size of any gap, because those values change with each update.</p>` +
-        `<ul>` +
-        `<li><b>Data snapshot:</b> ${D.meta ? D.meta.synced : "—"}</li>` +
-        `<li><b>Built by:</b> Jason Pither and Claude Opus 4.8 (high).</li>` +
-        `<li><b>Contact:</b> <a id="contact-link" href="#">${eUser} [at] ${eDom}</a></li>` +
-        `<li><b>Maps:</b> raster and point maps are interactive Web Mercator; the ecozone vector ` +
-        `map uses Canada Albers Equal Area Conic, the manuscript's projection.</li>` +
-        `</ul>`
-    })),
-    card("How to update (target: twice yearly)", el("div.prose", {
-      html:
-        `<ol>` +
-        `<li><b>Re-run the manuscript pipeline</b> (<code>scripts/run_all.R</code>) so ` +
-        `<code>data_derived/</code> and <code>figures/</code> are current. Some raw inputs must be ` +
-        `sourced manually first (see the manuscript <code>data_raw/DATA-DICTIONARY.md</code>).</li>` +
-        `<li><b>Sync:</b> <code>Rscript R/sync_inputs.R /path/to/ECM_manuscript</code> — copies the ` +
-        `figures + tables, rebuilds <code>data/dashboard_data.js</code>, and writes ` +
-        `<code>data/MANIFEST.csv</code>.</li>` +
-        `<li><b>Reload</b> <code>index.html</code> (or redeploy). No build step.</li>` +
-        `</ol>` +
-        `<p class="muted">All content is driven by <code>data/dashboard_data.js</code>; presentation ` +
-        `lives in <code>js/config.js</code>. See <code>README.md</code>.</p>`
-    }))
-  ]));
+  sec.appendChild(card("What this is", el("div.prose", {
+    html:
+      `<p>A companion to <i>“An assessment of biodiversity data shortfalls for ectomycorrhizal ` +
+      `(EcM) fungi in Canada”</i> (Eckert et al.). It reports the seven biodiversity data ` +
+      `shortfalls of Hortal et al. (2015) for EcM fungi in Canada.</p>` +
+      `<p>Every value shown is read from the same pipeline outputs that generate the ` +
+      `manuscript's statistics, tables and figures, and is refreshed each time the dashboard is ` +
+      `synced. Text on the dashboard describes what each item shows; it does not characterise ` +
+      `the size of any gap, because those values change with each update.</p>` +
+      `<ul>` +
+      `<li><b>Data snapshot:</b> ${D.meta ? D.meta.synced : "—"}</li>` +
+      `<li><b>Built by:</b> Jason Pither and Claude Opus 4.8 (high).</li>` +
+      `<li><b>Contact:</b> <a id="contact-link" href="#">${eUser} [at] ${eDom}</a></li>` +
+      `<li><b>Maps:</b> raster and point maps are interactive Web Mercator; the ecozone vector ` +
+      `map uses Canada Albers Equal Area Conic, the manuscript's projection.</li>` +
+      `</ul>`
+  })));
 
   // Source datasets: version / access date
   const t = el("table.metrics");
