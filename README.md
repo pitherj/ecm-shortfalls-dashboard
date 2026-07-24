@@ -8,19 +8,13 @@ An interactive, dependency-light **JavaScript** dashboard that summarizes the
 biodiversity data shortfalls for ectomycorrhizal fungi in Canada"* (Eckert et al.,
 submitted to *FACETS*).
 
-It is a **companion to the paper, not a re-analysis**: every number, map, and
-figure is read from the same pipeline outputs that generate the manuscript's
-statistics, so the dashboard cannot drift from the paper. The design goal is a
-lightweight, static site that can be **refreshed on a routine schedule (target:
+It is a **companion to the paper, not a re-analysis**: all outputs are read from the same pipeline that generate the manuscript's outputs, so the dashboard cannot drift from the paper. The design is purposefully lightweight, and deployed as a static site that will be **refreshed on a routine schedule (target:
 twice yearly)** as the underlying data sources are updated.
 
 ---
 
 ## What it shows
 
-- **Landing “hub”** — a radial wheel of all seven shortfalls around a central
-  core showing the **Figure 1 sampling map** (sampling gaps underlie every
-  shortfall).  
 - **One section per shortfall** — headline stat tiles, a short plain-language
   framing, and the supporting charts/figures/maps. GlobalFungi vs GenBank
   differences are broken out where relevant (Linnean Venn diagrams; Wallacean and
