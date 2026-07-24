@@ -139,7 +139,7 @@ const DATA_SOURCES = [
   ["van Galen et al. (2025) dark-taxa layers", "figshare DOI 10.6084/m9.figshare.28830371"],
   ["GBIF specimen occurrence download", "DOI 10.15468/dl.92rns5"],
   ["Ecoregions / ecozones", "National Ecological Framework for Canada (AAFC)"],
-  ["GADM; Natural Earth", "administrative boundaries; base layers"]
+  ["Natural Earth", "lakes basemap"]
 ];
 
 /* ---- about + updating ----------------------------------------------------- */
