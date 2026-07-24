@@ -1,0 +1,13 @@
+# macOS
+.DS_Store
+
+# R / RStudio
+.Rproj.user/
+.Rhistory
+.RData
+.Ruserdata
+Rplots.pdf
+
+# NOTE: this is a no-build static site. The following ARE tracked and required:
+#   index.html, css/, js/, assets/leaflet/, figures/
+#   data/  (the snapshot + data/dashboard_data.js, refreshed by R/sync_inputs.R)

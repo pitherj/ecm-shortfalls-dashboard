@@ -1,0 +1,4 @@
+definition,n_ecozones,ecozones_ge1,ecozones_ge10,ecozones_ge30
+"GF + GenBank combined, raw unique locations",15,13,10,7
+"GlobalFungi only, 3-decimal-binned sites",15,11,6,4
+"GF + GenBank combined, 3-decimal-binned sites",15,13,10,7

@@ -1,0 +1,10 @@
+dataset,taxonomic_level,n_taxa,mean_locs,median_locs,max_locs,min_locs,n_single_location,pct_single_location
+GlobalFungi,SH code,2062,11.79,3,306,1,581,28.2
+GlobalFungi,Genus,103,78.63,28,443,1,11,10.7
+GlobalFungi,Species,1002,15.91,5,280,1,226,22.6
+GenBank,SH code,875,2.93,2,36,1,403,46.1
+GenBank,Genus,74,22.34,3.5,397,1,23,31.1
+GenBank,Species,613,3.46,2,36,1,236,38.5
+Combined,SH code,2365,11.36,3,308,1,669,28.3
+Combined,Genus,107,91.14,25,722,1,10,9.3
+Combined,Species,1156,15.63,5,283,1,253,21.9

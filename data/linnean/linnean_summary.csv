@@ -1,0 +1,39 @@
+metric,value
+"Unique UNITE v10 SH codes (combined dataset, all records)",2805
+Unique UNITE v10 SH codes (records with coordinates only),2365
+Named-species SH codes (records with coordinates only),1313
+"Unique EcM genera (combined dataset, FungalTraits-filtered)",124
+Unique EcM genera (records with coordinates only),107
+"Unique named species (UNITE taxonomy, excl. _sp; combined dataset)",1405
+Unique named species (records with coordinates only),1156
+All SH codes: shared between GlobalFungi and GenBank,873
+All SH codes: GlobalFungi only (not in GenBank),1189
+All SH codes: GenBank only (not in GlobalFungi),743
+Named-species SH codes: total unique across GF + GenBank (regardless of coords),1621
+Named-species SH codes: shared between GlobalFungi and GenBank,681
+Named-species SH codes: GlobalFungi only,442
+Named-species SH codes: GenBank only,498
+Unique named species: shared between GlobalFungi and GenBank,653
+Unique named species: GlobalFungi only,349
+Unique named species: GenBank only,403
+Unique EcM lineages observed in Canada (lineage definitions from FungalTraits),54
+Known EcM genera globally (FungalTraits),327
+EcM genera observed in Canada,124
+% of global EcM genera observed in Canada,37.9
+Canadian EcM genera absent from FungalTraits EcM list,0
+GlobalFungi: unique SH codes (Canadian dataset),2062
+GlobalFungi: singleton SH codes (total abundance = 1 across Canadian samples),193
+GlobalFungi: singleton SH codes (% of GF Canadian SHs),9.4
+GlobalFungi: non-singleton SH codes,1869
+GlobalFungi: SH codes with species-level UNITE name,1123
+GlobalFungi: SH codes with species-level name (% of GF Canadian SHs),54.5
+GenBank: total EcM sequence records,9149
+GenBank: unique SH codes (Canadian dataset),1616
+GenBank: SH codes with species-level UNITE name,1179
+GenBank: SH codes with species-level name (% of GenBank Canadian SHs),73
+GBIF: physical EcM specimen records — genera WITH sequence data (Canada),51206
+GBIF: EcM species represented (genera with sequence data),2317
+GBIF: EcM genera represented (genera with sequence data),110
+GBIF: physical EcM specimen records — genera WITHOUT sequence data (Canada),1174
+GBIF: EcM species represented (genera without sequence data),56
+GBIF: EcM genera represented (genera without sequence data),32

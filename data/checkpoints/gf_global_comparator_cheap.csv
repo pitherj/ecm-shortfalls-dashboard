@@ -1,0 +1,7 @@
+metric,value
+"GlobalFungi v5 samples worldwide (raw, all taxa)",84972
+"GlobalFungi v5 samples worldwide (quality-filtered, all taxa)",47606
+"EcM SH codes detected (GlobalFungi-wide, matrix presence)",12970
+"EcM genera detected (GlobalFungi-wide, matrix presence)",225
+"EcM named species detected (GlobalFungi-wide, matrix presence)",3759
+EcM unique sampling locations (GlobalFungi-wide),11651

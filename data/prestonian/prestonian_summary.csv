@@ -1,0 +1,15 @@
+metric,value
+EcM genera in our Canadian dataset,124
+"EcM species (UNITE, named) in our Canadian dataset",1405
+BioTIME fungi studies (taxa + organisms filter),1
+BioTIME species names in fungi studies,110
+BioTIME species matching our EcM species (exact),2
+BioTIME species within our EcM genera (genus-level),3
+BioTIME records for matched EcM taxa,11
+BioTIME studies containing matched EcM taxa,1
+"Matched EcM taxa with repeat sampling (same location, >1 year)",1
+Location x taxon combinations with >1 year of data,1
+EcM genera with NO BioTIME record,121
+% of our EcM genera absent from BioTIME,97.6
+EcM named taxa (species) with NO BioTIME record,1403
+% of our EcM named taxa absent from BioTIME,99.9

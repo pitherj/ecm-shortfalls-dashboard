@@ -1,0 +1,7 @@
+trait,trait_label,trait_class,n_documented,n_total,pct_documented
+specific_hosts,Specific hosts,Ecological/interaction,6,124,4.8
+secondary_lifestyle,Secondary lifestyle,Ecological/interaction,3,124,2.4
+endophytic_interaction_capability_template,Endophytic interaction capability,Ecological/interaction,2,124,1.6
+fruitbody_type_template,Fruitbody type,Morphological/structural,124,124,100
+hymenium_type_template,Hymenium type,Morphological/structural,124,124,100
+ectomycorrhiza_exploration_type_template,Mycorrhiza exploration type,Morphological/structural,119,124,96

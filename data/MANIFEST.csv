@@ -1,0 +1,24 @@
+category,file,status,bytes,source_mtime
+SYNC,synced 2026-07-23 21:08:28 from /Users/jpither/Documents/claude_code/research/ECM_manuscript,,NA,
+data,linnean/linnean_summary.csv,ok,2261,2026-07-19 22:40:14
+data,linnean/linnean_genus_coverage.csv,ok,19169,2026-07-19 22:40:06
+data,wallacean/wallacean_sampling_intensity.csv,ok,504,2026-07-19 22:40:15
+data,wallacean/wallacean_locs_per_species.csv,ok,92523,2026-07-19 22:40:15
+data,wallacean/wallacean_locs_per_genus.csv,ok,6725,2026-07-19 22:40:15
+data,prestonian/prestonian_summary.csv,ok,699,2026-07-19 22:40:25
+data,darwinian/darwinian_summary.csv,ok,529,2026-07-19 22:40:25
+data,darwinian/darwinian_genus_summary.csv,ok,1587,2026-07-19 22:40:25
+data,raunkiaeran/raunkiaeran_trait_coverage.csv,ok,567,2026-07-19 22:40:26
+data,raunkiaeran/raunkiaeran_trait_distributions.csv,ok,1635,2026-07-19 22:40:26
+data,hutchinsonian/hutchinsonian_ecozone_summary.csv,ok,232,2026-07-19 22:41:06
+data,hutchinsonian/hutchinsonian_ecozone_sample_counts.csv,ok,1349,2026-07-19 22:41:07
+data,eltonian/eltonian_summary.csv,ok,3377,2026-07-19 22:41:23
+data,eltonian/eltonian_genus_occurrence_counts.csv,ok,5213,2026-07-19 22:41:07
+data,checkpoints/gf_global_comparator_cheap.csv,ok,393,2026-07-01 12:57:33
+figure,Figure-01_sampling_map.png,ok,1677182,2026-07-19 16:18:34
+figure,Figure-02_wallacean_occupancy.png,ok,329986,2026-07-19 16:15:25
+figure,Figure-03_climate_gap.png,ok,1352017,2026-07-19 16:17:05
+figure,Figure-04_host_bivariate_map.png,ok,1409611,2026-07-19 22:41:11
+figure,Figure-S1_dark_diversity.png,ok,1208148,2026-07-19 16:01:32
+figure,Figure-S4_ecozone_sampling_map.png,ok,2180172,2026-07-19 22:41:02
+data,map_points.csv (derived from emf_canada_em_only.csv),ok,NA,2026-07-19 16:00:36

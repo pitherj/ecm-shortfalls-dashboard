@@ -1,0 +1,235 @@
+/* =============================================================================
+   style.css -- EcM shortfalls dashboard
+   Palette note: all coloured backgrounds behind text use translucent rgba()
+   (set inline from the shortfall accent) so overlaid labels stay readable.
+   ============================================================================= */
+:root{
+  --ink:#1f2a30; --ink-soft:#4a5a63; --muted:#7c8a92;
+  --line:#e4e9ec; --bg:#f4f7f8; --card:#ffffff;
+  --maxw:1180px; --nav-h:62px;
+  --font:"Source Sans Pro",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+/* Accessibility: a clearly visible keyboard focus ring everywhere, and respect
+   a user's reduced-motion preference. */
+:focus-visible{outline:3px solid #b8860b;outline-offset:2px;border-radius:4px}
+@media(prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *{transition:none!important;animation:none!important}
+}
+.skip-link{position:absolute;left:-9999px;top:0;z-index:2000;background:#fff;color:#1f2a30;
+  padding:.6rem .9rem;border:2px solid #2c6b8f;border-radius:0 0 6px 0;font-weight:700}
+.skip-link:focus{left:0}
+body{margin:0;font-family:var(--font);color:var(--ink);background:var(--bg);line-height:1.5;
+  -webkit-font-smoothing:antialiased}
+h1,h2,h3{margin:0;font-weight:700;letter-spacing:-.01em}
+a{color:inherit}
+
+/* ---- top nav -------------------------------------------------------------- */
+.topnav{position:sticky;top:0;z-index:1000;height:var(--nav-h);display:flex;align-items:center;
+  gap:1rem;padding:0 1.1rem;background:#ffffff;border-bottom:1px solid var(--line)}
+.brand{font-weight:800;font-size:1.18rem;white-space:nowrap}
+.brand span{color:#2c6b8f}
+.nav-links{display:flex;gap:.2rem;flex:1;overflow-x:auto;scrollbar-width:none}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-link{--accent:#2c6b8f;padding:.38rem .6rem;border-radius:6px;font-size:1rem;font-weight:600;
+  color:var(--ink-soft);text-decoration:none;white-space:nowrap;border-bottom:2px solid transparent}
+.nav-link:hover{background:#eef3f5;color:var(--ink)}
+.nav-link.active{color:var(--accent);border-bottom-color:var(--accent)}
+.nav-date{font-size:.84rem;color:var(--muted);white-space:nowrap}
+
+main{max-width:var(--maxw);margin:0 auto;padding:0 1.1rem}
+
+/* ---- hero + hub wheel ----------------------------------------------------- */
+.hero{padding:1.3rem 0 .6rem}
+.hero-head{text-align:center;max-width:760px;margin:0 auto .4rem}
+.hero h1{font-size:1.6rem;line-height:1.16}
+.hero-lead{color:var(--ink-soft);font-size:.98rem;margin:.5rem auto 0;max-width:620px}
+.hero-inner{display:flex;justify-content:center}
+/* hub: central sampling map (Figure 1) framed by the seven clickable tiles */
+.hub{display:grid;gap:.7rem;max-width:1120px;margin:0 auto;align-items:center;
+  grid-template-columns:minmax(120px,.85fr) minmax(340px,2.6fr) minmax(120px,.85fr);
+  grid-template-rows:auto auto auto;
+  grid-template-areas:"top top top" "lft map rgt" "bot bot bot"}
+.hub-top{grid-area:top;display:flex;gap:.7rem}
+.hub-left{grid-area:lft;display:flex}
+.hub-right{grid-area:rgt;display:flex}
+.hub-bottom{grid-area:bot;display:flex;gap:.7rem;justify-content:center}
+.hub-map{grid-area:map;text-align:center}
+.hub-top>.spoke{flex:1}
+.hub-left>.spoke,.hub-right>.spoke{flex:1}
+.hub-bottom>.spoke{flex:0 1 34%}
+.hub-map-img{max-width:100%;max-height:540px;height:auto;border-radius:10px;
+  border:1px solid var(--line);box-shadow:0 2px 12px rgba(30,40,50,.10)}
+
+.spoke{position:relative;border-radius:14px;min-height:94px;
+  background-size:cover;background-position:center;text-decoration:none;color:#fff;
+  display:flex;flex-direction:column;justify-content:flex-end;padding:.6rem .65rem;
+  box-shadow:0 3px 12px rgba(20,30,40,.18);border:1px solid rgba(255,255,255,.35);
+  transition:transform .16s ease,box-shadow .16s ease,filter .16s ease;overflow:hidden}
+.spoke:hover{transform:scale(1.04);filter:saturate(1.12);
+  box-shadow:0 8px 20px rgba(20,30,40,.28);z-index:5}
+.spoke-icon{position:absolute;top:.5rem;right:.55rem;width:28px;height:28px;opacity:.9;color:#fff}
+.spoke-icon svg{width:100%;height:100%}
+.spoke-name{font-size:1rem;font-weight:800;text-shadow:0 1px 3px rgba(0,0,0,.45);line-height:1.05}
+.spoke-action{font-size:.72rem;font-weight:600;opacity:.95;text-shadow:0 1px 2px rgba(0,0,0,.5);
+  line-height:1.15;margin-top:.15rem}
+
+@media(max-width:760px){
+  .hub{grid-template-columns:1fr;grid-template-areas:"map" "top" "lft" "rgt" "bot"}
+  .hub-top,.hub-bottom{flex-wrap:wrap}
+  .hub-top>.spoke,.hub-bottom>.spoke,.hub-left>.spoke,.hub-right>.spoke{flex:1 1 44%}
+}
+
+/* ---- shortfall sections --------------------------------------------------- */
+.shortfall{scroll-margin-top:calc(var(--nav-h) + 8px);padding:1.6rem 0 1rem;
+  border-top:1px solid var(--line)}
+.sf-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+  border-radius:12px;padding:.7rem 1rem;margin-bottom:.9rem}
+.sf-head-main{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
+.sf-badge{color:#fff;font-weight:700;font-size:.82rem;padding:.2rem .6rem;border-radius:20px}
+.sf-question{font-size:1.32rem;color:var(--ink)}
+.sf-action-chip{font-size:.82rem;font-weight:700;border:1px solid;border-radius:20px;padding:.2rem .7rem;
+  background:rgba(255,255,255,.65);white-space:nowrap}
+
+.stat-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
+.stat-tile{border-radius:10px;padding:.7rem .85rem}
+.stat-value{font-size:1.7rem;font-weight:800;line-height:1.05;color:var(--ink)}
+.stat-label{font-size:.82rem;color:var(--ink-soft);margin-top:.2rem}
+
+.sf-body{display:flex;flex-direction:column;gap:1rem}
+.detail-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+/* grid/flex items default to min-width:auto, which lets a wide child (e.g. a
+   3600px figure image) blow out the column; min-width:0 keeps columns equal. */
+.detail-grid>*{min-width:0}
+.card{min-width:0}
+.subhead{font-weight:700;font-size:.92rem;color:var(--ink);margin:.2rem 0 -.3rem;
+  padding-left:.55rem;border-left:3px solid var(--accent)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.hero-lead a{color:#2c6b8f;font-weight:600}
+@media(max-width:820px){.detail-grid{grid-template-columns:1fr}.stat-tiles{grid-template-columns:1fr}}
+
+/* ---- cards ---------------------------------------------------------------- */
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:.9rem 1rem;
+  box-shadow:0 1px 2px rgba(30,40,50,.04)}
+.card-title{font-weight:700;font-size:.92rem;color:var(--ink);margin-bottom:.7rem;
+  display:flex;align-items:center;gap:.45rem}
+/* "what is this?" toggle + the description it reveals */
+.info-btn{flex:0 0 auto;width:18px;height:18px;border-radius:50%;border:1px solid #9aa7ae;
+  background:#fff;color:#4a5a63;font-size:.72rem;font-weight:700;font-style:italic;
+  line-height:1;cursor:pointer;padding:0}
+.info-btn:hover{background:#eef3f5;color:var(--ink);border-color:#6c7a82}
+.info-btn[aria-expanded="true"]{background:#2c6b8f;color:#fff;border-color:#2c6b8f}
+.card-note{font-size:.85rem;line-height:1.45;color:var(--ink-soft);background:#f5f8fa;
+  border-left:3px solid #b8c6cd;border-radius:0 6px 6px 0;padding:.55rem .7rem;margin:-.2rem 0 .7rem}
+.note{background:#fff;border:1px solid var(--line);border-left:4px solid #2c6b8f;border-radius:8px;
+  padding:.7rem .9rem;font-size:.95rem;color:var(--ink-soft)}
+.note b{color:var(--ink)}
+.prose{font-size:.92rem;color:var(--ink-soft)}
+.prose p{margin:.2rem 0 .6rem}.prose ul,.prose ol{margin:.3rem 0;padding-left:1.1rem}
+.prose li{margin:.2rem 0}.prose code{background:#eef2f4;padding:.05rem .3rem;border-radius:4px;font-size:.86em}
+.muted{color:var(--muted);font-size:.82rem}
+
+/* ---- horizontal bars ------------------------------------------------------ */
+.hbars{display:flex;flex-direction:column;gap:.32rem}
+.hbar-row{display:grid;grid-template-columns:minmax(90px,34%) 1fr;align-items:center;gap:.5rem}
+.hbar-label{font-size:.8rem;color:var(--ink-soft);text-align:right;overflow:hidden;text-overflow:ellipsis;
+  white-space:nowrap}
+/* .hbar-bar holds the track and its value label side by side, so a long
+   "count of N (pct%)" label is never clipped or overlaid on a near-full bar
+   (see charts.js hbars()/stackBars()). */
+.hbar-bar{display:flex;align-items:center;gap:.5rem}
+.hbar-track{position:relative;flex:1 1 auto;min-width:0;display:flex;overflow:hidden;
+  background:#eef2f4;border-radius:5px;height:20px}
+.hbar-fill{height:100%;border-radius:5px 3px 3px 5px;min-width:3px}
+.hbar-seg{height:100%}
+.hbar-val{flex:0 0 auto;white-space:nowrap;font-size:.74rem;font-weight:700;color:var(--ink-soft)}
+.stack-legend{display:flex;gap:1rem;margin-top:.5rem;font-size:.8rem;color:var(--ink-soft)}
+
+/* ---- venn (two-set overlap) ---------------------------------------------- */
+.venn-wrap{display:flex;flex-direction:column;align-items:center}
+.venn-svg{width:100%;max-width:340px;height:auto}
+.venn-num{text-anchor:middle;font-weight:800;font-size:20px;fill:var(--ink)}
+.venn-num.small{font-size:15px}
+.venn-legend{display:flex;gap:.9rem;flex-wrap:wrap;align-items:center;margin-top:.4rem;
+  font-size:.82rem;color:var(--ink-soft)}
+.venn-mid{color:var(--muted);font-style:italic}
+
+/* ---- raster legend gradient ---------------------------------------------- */
+/* The ramp must span the full legend width so the min/max labels line up with
+   the ends of the colour ribbon (the box is as wide as its title). */
+.map-legend .ramp{height:11px;width:100%;min-width:130px;border-radius:2px;margin:4px 0 2px;
+  border:1px solid rgba(0,0,0,.18)}
+.map-legend .ramp-lab{display:flex;justify-content:space-between;width:100%;
+  font-size:.7rem;color:var(--ink-soft)}
+
+/* ---- ecozone legend ------------------------------------------------------- */
+.ecozone-legend{max-height:230px;overflow-y:auto;font-size:.72rem;line-height:1.45}
+.ecozone-legend .dot.sq{border-radius:2px;border:1px solid rgba(0,0,0,.25)}
+
+/* ---- climate space (Figure 3 explorer) ------------------------------------ */
+.climate-space{display:flex;flex-direction:column;align-items:center}
+.climate-svg{width:100%;max-width:460px;height:auto}
+.climate-svg .cz{shape-rendering:crispEdges}
+.climate-svg .cz-axis{stroke:#9aa7ae;stroke-width:1}
+.climate-svg .cz-tick{font-size:11px;fill:var(--muted);text-anchor:middle}
+.climate-svg .cz-tick.end{text-anchor:end}
+.climate-svg .cz-title{font-size:11.5px;fill:var(--ink-soft);text-anchor:middle;font-weight:600}
+/* Two-part highlight so the hovered zone is visible on both dark and light
+   cells: a thick white halo with a bright orange core. Deliberately overlaps
+   neighbouring cells. */
+.climate-svg .cz-marker-halo{fill:none;stroke:#ffffff;stroke-width:6;pointer-events:none}
+.climate-svg .cz-marker{fill:none;stroke:#ff6b00;stroke-width:3;pointer-events:none}
+.cz-readout{margin-top:.4rem;font-size:.8rem;color:var(--ink-soft);min-height:1.2em;text-align:center}
+
+/* ---- donut ---------------------------------------------------------------- */
+.donut-wrap{display:flex;align-items:center;gap:1rem;flex-wrap:wrap}
+.donut-svg{width:160px;height:160px;flex:0 0 auto}
+.donut-arc{transition:stroke-width .15s}.donut-arc:hover{stroke-width:24}
+.donut-center-top{text-anchor:middle;font-size:26px;font-weight:800;fill:var(--ink)}
+.donut-center-bottom{text-anchor:middle;font-size:12px;fill:var(--muted)}
+.donut-legend{display:flex;flex-direction:column;gap:.35rem;font-size:.86rem;color:var(--ink-soft)}
+.legend-item{display:flex;align-items:center;gap:.45rem}
+.legend-swatch{width:14px;height:14px;border-radius:3px;display:inline-block}
+
+/* ---- figure viewer (Albers analysis figures) ------------------------------ */
+.fig-viewer{position:relative}
+.fig-view{position:relative;width:100%;height:400px;overflow:hidden;border-radius:8px;background:#fff;
+  border:1px solid var(--line);cursor:grab}
+.fig-view.grabbing{cursor:grabbing}
+.fig-img{transform-origin:0 0;user-select:none;max-width:none;display:block}
+.fig-controls{position:absolute;top:8px;right:8px;display:flex;gap:4px}
+.fig-controls button{width:30px;height:30px;font-size:16px;font-weight:700;line-height:1;
+  border:1px solid #ccc;border-radius:5px;background:rgba(255,255,255,.92);cursor:pointer}
+.fig-controls button:hover{background:#eaf2fb}
+.fig-missing{padding:1.2rem;color:var(--muted);font-style:italic}
+
+/* ---- leaflet map ---------------------------------------------------------- */
+.leaflet-host{height:460px;border-radius:8px;overflow:hidden;border:1px solid var(--line)}
+/* Our raster overlays are discrete grid cells (0.5deg host maps, 10min climate
+   cells), not continuous imagery. Left to the browser's default bilinear/bicubic
+   resampling, scaling the overlay produces faint seam lines at cell boundaries
+   -- most visible as a stray diagonal line where two colours meet at a sharp
+   angle. Nearest-neighbour scaling keeps every cell edge crisp and removes it. */
+.leaflet-image-layer{image-rendering:pixelated;image-rendering:-moz-crisp-edges;image-rendering:crisp-edges}
+/* tile-less Albers vector maps show this as the "sea" behind the polygons */
+.leaflet-container{background:#e9eff2}
+.map-legend{background:rgba(255,255,255,.9);padding:6px 9px;border-radius:6px;font-size:.8rem;
+  box-shadow:0 1px 4px rgba(0,0,0,.2);line-height:1.5}
+.map-legend-title{font-weight:700;margin-bottom:2px}
+.map-legend .dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+
+/* ---- metrics table -------------------------------------------------------- */
+.metrics{width:100%;border-collapse:collapse;font-size:.84rem}
+.metrics th{text-align:left;color:var(--muted);font-weight:600;border-bottom:2px solid var(--line);
+  padding:.35rem .5rem}
+.metrics td{border-bottom:1px solid var(--line);padding:.32rem .5rem;vertical-align:top}
+.metrics td.num{text-align:right;font-variant-numeric:tabular-nums;font-weight:700;white-space:nowrap}
+.metrics tr:hover td{background:#f7fafb}
+
+/* ---- about + footer ------------------------------------------------------- */
+.about{scroll-margin-top:calc(var(--nav-h) + 8px);padding:1.6rem 0;border-top:1px solid var(--line)}
+.about-h{font-size:1.4rem;margin-bottom:.9rem}
+.site-foot{max-width:var(--maxw);margin:1rem auto 2rem;padding:1rem 1.1rem 0;border-top:1px solid var(--line);
+  display:flex;justify-content:space-between;gap:1rem;flex-wrap:wrap;font-size:.78rem;color:var(--muted)}

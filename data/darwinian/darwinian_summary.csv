@@ -1,0 +1,13 @@
+metric,value
+EcM genera in our Canadian dataset,124
+"EcM species (UNITE, named) in our Canadian dataset",1405
+MycoCosm fungal records (total),3261
+MycoCosm records matching our EcM genera,186
+EcM genera with genome data in MycoCosm,40
+% of our EcM genera with genome data,32.3
+EcM genera absent from MycoCosm,84
+% of our EcM genera absent from MycoCosm,67.7
+EcM species with genome data in MycoCosm,67
+% of our EcM species with genome data,4.8
+EcM species absent from MycoCosm,1338
+% of our EcM species absent from MycoCosm,95.2
