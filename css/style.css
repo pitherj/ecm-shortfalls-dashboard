@@ -45,8 +45,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:0 1.1rem}
 .hero{padding:1.3rem 0 .6rem}
 .hero-head{text-align:center;max-width:760px;margin:0 auto .4rem}
 .hero h1{font-size:1.6rem;line-height:1.16}
-.hero-authors{color:var(--ink-soft);font-size:.86rem;margin:.5rem auto 0;max-width:620px}
-.hero-lead{color:var(--ink-soft);font-size:.98rem;margin:.35rem auto 0;max-width:620px}
+.hero-lead{color:var(--ink-soft);font-size:.98rem;margin:.5rem auto 0;max-width:620px}
 .hero-inner{display:flex;justify-content:center}
 /* hub: central sampling map (Figure 1) framed by the seven clickable tiles */
 .hub{display:grid;gap:.7rem;max-width:1120px;margin:0 auto;align-items:center;
