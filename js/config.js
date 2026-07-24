@@ -43,6 +43,7 @@ const SHORTFALLS = [
   {
     id: "linnean", name: "Linnean", question: "How many species are there and how many do we know about?",
     action: "Detect &amp; describe more species", color: "#2c6b8f",
+    hubTagline: "gaps in knowledge about formal species descriptions",
     img: "figures/Figure-S1_dark_diversity.png",
     stats: D => [
       { v: fmt.n(D.totals.sh_total), l: "Species hypotheses (SH codes)" },
@@ -107,6 +108,7 @@ const SHORTFALLS = [
   {
     id: "wallacean", name: "Wallacean", question: "Where do they occur?",
     action: "Fill geographic sampling gaps", color: "#d95f02",
+    hubTagline: "gaps in knowledge about species’ geographic distributions",
     img: "figures/Figure-01_sampling_map.png",
     stats: D => [
       { v: fmt.n(D.totals.wall_gf_sp_median), l: "Median GlobalFungi records / species" },
@@ -154,6 +156,7 @@ const SHORTFALLS = [
   {
     id: "prestonian", name: "Prestonian", question: "How abundant are they in space and through time?",
     action: "Track abundance over time", color: "#5c6b73", icon: "clock",
+    hubTagline: "gaps in knowledge about abundance and population dynamics",
     stats: D => [
       { v: fmt.pct(D.totals.pres_pct_absent), l: "Species with no abundance time series" },
       { v: fmt.n(D.totals.pres_studies), l: "Matching BioTIME studies" },
@@ -176,6 +179,7 @@ const SHORTFALLS = [
   {
     id: "darwinian", name: "Darwinian", question: "How have they evolved?",
     action: "Sequence more genomes", color: "#6a51a3", icon: "dna",
+    hubTagline: "gaps in knowledge about the evolution of species lineages",
     stats: D => [
       { v: fmt.pct(D.totals.darw_pct_absent), l: "Species with no sequenced genome" },
       { v: fmt.pct(D.totals.darw_genera_pct), l: "Genera with genome data" },
@@ -206,6 +210,7 @@ const SHORTFALLS = [
   {
     id: "raunkiaeran", name: "Raunkiæran", question: "What are their traits and functions?",
     action: "Document functional traits", color: "#1a9850", icon: "trait",
+    hubTagline: "gaps in knowledge about species traits and functions",
     stats: D => [
       { v: fmt.pct(D.totals.raunk_morph_max), l: "Morphological-trait coverage" },
       { v: fmt.pct(D.totals.raunk_host_pct), l: "Host-specificity coverage" },
@@ -253,6 +258,7 @@ const SHORTFALLS = [
   {
     id: "hutchinsonian", name: "Hutchinsonian", question: "What are their abiotic niches?",
     action: "Sample more climate space", color: "#c0392b",
+    hubTagline: "gaps in knowledge about abiotic niches",
     img: "figures/Figure-03_climate_gap.png",
     stats: D => [
       { v: `${fmt.n(D.totals.hutch_ez_total - D.totals.hutch_ez_samp)} / ${fmt.n(D.totals.hutch_ez_total)}`, l: "Ecozones unsampled" },
@@ -297,6 +303,7 @@ const SHORTFALLS = [
   {
     id: "eltonian", name: "Eltonian", question: "Who do they interact with?",
     action: "Sample more host species", color: "#b8860b",
+    hubTagline: "gaps in knowledge about species interactions",
     img: "figures/Figure-04_host_bivariate_map.png",
     stats: D => [
       { v: fmt.pct(D.totals.elt_host_pct), l: "Host species with partner data" },

@@ -82,8 +82,8 @@ function makeSpoke(sf) {
     onclick: e => { e.preventDefault(); smoothScroll("#" + sf.id); }
   }, [
     sf.icon ? el("div.spoke-icon", { html: ICONS[sf.icon] }) : null,
-    el("div.spoke-name", { text: sf.name }),
-    el("div.spoke-action", { html: sf.action })
+    el("div.spoke-name", { text: sf.name + " shortfall" }),
+    el("div.spoke-action", { html: sf.hubTagline })
   ].filter(Boolean));
 }
 
