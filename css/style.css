@@ -38,6 +38,8 @@ a{color:inherit}
 .nav-link:hover{background:#eef3f5;color:var(--ink)}
 .nav-link.active{color:var(--accent);border-bottom-color:var(--accent)}
 .nav-date{font-size:.84rem;color:var(--muted);white-space:nowrap}
+.gh-link{display:flex;align-items:center;color:var(--ink-soft);flex:0 0 auto}
+.gh-link:hover{color:var(--ink)}
 
 main{max-width:var(--maxw);margin:0 auto;padding:0 1.1rem}
 
