@@ -1,5 +1,7 @@
 # EcM Fungi in Canada — Shortfalls Dashboard
 
+**Live:** https://pitherj.github.io/ecm-shortfalls-dashboard/
+
 An interactive, dependency-light **JavaScript** dashboard that summarizes the
 **seven biodiversity data shortfalls** (Hortal et al. 2015) for **ectomycorrhizal
 (EcM) fungi in Canada**, as quantified in the manuscript *"An assessment of
@@ -130,7 +132,10 @@ locally instead:
 python3 -m http.server 8801   # then open http://localhost:8801/index.html
 ```
 
-Deploy by copying the whole folder to any static host (e.g. GitHub Pages).
+Deployed via GitHub Pages, serving directly from the `main` branch root (no
+build step, no GitHub Actions). Pages redeploys automatically whenever `main`
+is pushed — there is no scheduled or automated re-sync; updating is always the
+manual sync → commit → push sequence below.
 
 ---
 
