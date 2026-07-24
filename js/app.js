@@ -95,11 +95,9 @@ function buildSections(D) {
     sec.style.setProperty("--accent", sf.color);
     // header band (translucent accent so text stays readable)
     sec.appendChild(el("div.sf-head", { style: `background:${hexA(sf.color, .12)}` }, [
-      el("div.sf-head-main", null, [
-        el("span.sf-badge", { text: sf.name, style: `background:${sf.color}` }),
-        el("h2.sf-question", { text: sf.question })
-      ]),
-      el("span.sf-action-chip", { html: "→ " + sf.action, style: `color:${sf.color};border-color:${hexA(sf.color, .4)}` })
+      el("h2.sf-question", {
+        html: `<span class="sf-title">${sf.name} shortfall</span>: ${sf.hubTagline}`
+      })
     ]));
     // stat tiles
     const tiles = el("div.stat-tiles");

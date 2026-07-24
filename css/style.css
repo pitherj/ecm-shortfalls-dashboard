@@ -85,13 +85,10 @@ main{max-width:var(--maxw);margin:0 auto;padding:0 1.1rem}
 /* ---- shortfall sections --------------------------------------------------- */
 .shortfall{scroll-margin-top:calc(var(--nav-h) + 8px);padding:1.6rem 0 1rem;
   border-top:1px solid var(--line)}
-.sf-head{display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap;
+.sf-head{display:flex;align-items:center;gap:1rem;flex-wrap:wrap;
   border-radius:12px;padding:.7rem 1rem;margin-bottom:.9rem}
-.sf-head-main{display:flex;align-items:center;gap:.7rem;flex-wrap:wrap}
-.sf-badge{color:#fff;font-weight:700;font-size:.82rem;padding:.2rem .6rem;border-radius:20px}
 .sf-question{font-size:1.32rem;color:var(--ink)}
-.sf-action-chip{font-size:.82rem;font-weight:700;border:1px solid;border-radius:20px;padding:.2rem .7rem;
-  background:rgba(255,255,255,.65);white-space:nowrap}
+.sf-title{font-weight:800;font-size:1.08em}
 
 .stat-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
 .stat-tile{border-radius:10px;padding:.7rem .85rem}
