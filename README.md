@@ -66,6 +66,10 @@ et al. (2025). The derived data and figures reproduced here inherit the manuscri
 deposit's terms (**CC BY-NC 4.0**); see the manuscript repository's `README.md` and
 `ARCHIVING.md` for full per-source terms and citation details:  [https://github.com/pitherj/Canada_ecto_shortfalls](https://github.com/pitherj/Canada_ecto_shortfalls).
 
+## Acknowledgements
+
+Work on the manuscript was directly supported by a [Canadian Institute for Ecology & Evolution](https://www.ciee-icee.ca) Working Group grant (2025). We are grateful to the Accelerate Okanagan (Kelowna, BC) for providing collaboration space and logistical support. The research programs of JP, JK, and MF are supported by the Natural Sciences and Engineering Research Council of Canada Discovery Grant program. SNK was funded by National Science Foundation awards 2106065, 2338421, 2412561. CQ was supported by a grant from the Paul G. Allen Family Foundation to the Society for the Protection of Underground Networks (SPUN).
+
 ## Reference
 
 Hortal J, de Bello F, Diniz-Filho JAF, Lewinsohn TM, Lobo JM, Ladle RJ (2015)
