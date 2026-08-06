@@ -1,5 +1,5 @@
 category,file,status,bytes,source_mtime
-SYNC,synced 2026-08-05 21:21:56 from /Users/jpither/Documents/claude_code/research/ECM_manuscript,,NA,
+SYNC,synced 2026-08-05 21:36:42 from /Users/jpither/Documents/claude_code/research/ECM_manuscript,,NA,
 data,linnean/linnean_summary.csv,ok,2261,2026-07-19 22:40:14
 data,linnean/linnean_genus_coverage.csv,ok,19169,2026-07-19 22:40:06
 data,wallacean/wallacean_sampling_intensity.csv,ok,504,2026-07-19 22:40:15
