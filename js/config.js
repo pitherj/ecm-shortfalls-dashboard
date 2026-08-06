@@ -413,10 +413,9 @@ const SHORTFALLS = [
       ]));
       host.appendChild(note(
         `<b>${fmt.pct(T.elt_host_pct)}</b> of the <b>${fmt.n(T.elt_host_denom)}</b> native EcM host ` +
-        `species have at least one documented fungal partner in Canada, and ` +
-        `<b>${fmt.pct(T.elt_empty_pct)}</b> of the host × fungal-species matrix is empty. Named EcM ` +
-        `fungal species with at least one documented host: <b>${fmt.n(T.elt_named_host_can)}</b> within ` +
-        `Canada, <b>${fmt.n(T.elt_named_host_glob)}</b> using worldwide records.`,
+        `species have at least one documented fungal partner in Canada. Named EcM fungal species ` +
+        `with at least one documented host: <b>${fmt.n(T.elt_named_host_can)}</b> within Canada, ` +
+        `<b>${fmt.n(T.elt_named_host_glob)}</b> using worldwide records.`,
         this.color));
     }
   }
