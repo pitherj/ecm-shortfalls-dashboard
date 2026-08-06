@@ -307,23 +307,22 @@ const SHORTFALLS = [
     img: "figures/Figure-04_host_bivariate_map.png",
     stats: D => [
       { v: fmt.pct(D.totals.elt_host_pct), l: "Host species with partner data" },
-      { v: fmt.pct(D.totals.elt_empty_pct), l: "Host × fungal matrix empty" },
       { v: `${fmt.n(D.totals.elt_genera_host)} / ${fmt.n(D.totals.n_genera)}`, l: "Genera with ≥1 host" }
     ],
     detail(host, D) {
       const T = D.totals;
       const MISS = "#9e9e9e";   // shared "missing/no info" grey, matches Linnean/Darwinian donuts
 
-      // ---- Recording the host: how reliable is the evidence? (the fungal, not
-      // plant-host, perspective -- how often can a detected fungus actually be
-      // pinned to a host, and how confidently).
+      // ---- How prevalent is host information in the source data? (the fungal,
+      // not plant-host, perspective -- how often can a detected fungus actually
+      // be pinned to a host, and how confidently).
       const gfTotal = T.elt_gf_samples_total, gfHost = T.elt_gf_host_samples,
             gfNoHost = gfTotal - gfHost;
       const gbTotal = T.elt_gb_total, gbHost = T.elt_gb_host, gbNoHost = gbTotal - gbHost;
       const canNoHost = T.sp_named - T.elt_named_host_can,
             globNoHost = T.sp_named - T.elt_named_host_glob;
       host.appendChild(el("div.subhead",
-        { text: "Recording the host: how reliable is the evidence?" }));
+        { text: "How prevalent is host information in the source data?" }));
       host.appendChild(el("div.detail-grid", null, [
         withNote(card("GlobalFungi samples: host information recorded",
           donut([

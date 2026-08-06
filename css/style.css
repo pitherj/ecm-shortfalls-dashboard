@@ -92,7 +92,7 @@ main{max-width:var(--maxw);margin:0 auto;padding:0 1.1rem}
 .sf-question{font-size:1.32rem;color:var(--ink)}
 .sf-title{font-weight:800;font-size:1.08em}
 
-.stat-tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:.7rem;margin-bottom:1rem}
+.stat-tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:.7rem;margin-bottom:1rem}
 .stat-tile{border-radius:10px;padding:.7rem .85rem}
 .stat-value{font-size:1.7rem;font-weight:800;line-height:1.05;color:var(--ink)}
 .stat-label{font-size:.82rem;color:var(--ink-soft);margin-top:.2rem}
