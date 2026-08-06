@@ -1,5 +1,5 @@
 category,file,status,bytes,source_mtime
-SYNC,synced 2026-07-23 21:08:28 from /Users/jpither/Documents/claude_code/research/ECM_manuscript,,NA,
+SYNC,synced 2026-08-05 21:21:56 from /Users/jpither/Documents/claude_code/research/ECM_manuscript,,NA,
 data,linnean/linnean_summary.csv,ok,2261,2026-07-19 22:40:14
 data,linnean/linnean_genus_coverage.csv,ok,19169,2026-07-19 22:40:06
 data,wallacean/wallacean_sampling_intensity.csv,ok,504,2026-07-19 22:40:15
@@ -12,8 +12,10 @@ data,raunkiaeran/raunkiaeran_trait_coverage.csv,ok,567,2026-07-19 22:40:26
 data,raunkiaeran/raunkiaeran_trait_distributions.csv,ok,1635,2026-07-19 22:40:26
 data,hutchinsonian/hutchinsonian_ecozone_summary.csv,ok,232,2026-07-19 22:41:06
 data,hutchinsonian/hutchinsonian_ecozone_sample_counts.csv,ok,1349,2026-07-19 22:41:07
-data,eltonian/eltonian_summary.csv,ok,3377,2026-07-19 22:41:23
+data,eltonian/eltonian_summary.csv,ok,3450,2026-08-05 21:18:33
 data,eltonian/eltonian_genus_occurrence_counts.csv,ok,5213,2026-07-19 22:41:07
+data,eltonian/eltonian_sample_type_tally_canada.csv,ok,49,2026-07-19 22:41:07
+data,eltonian/eltonian_genbank_tissue_tally_canada.csv,ok,207,2026-07-19 22:41:07
 data,checkpoints/gf_global_comparator_cheap.csv,ok,393,2026-07-01 12:57:33
 figure,Figure-01_sampling_map.png,ok,1677182,2026-07-19 16:18:34
 figure,Figure-02_wallacean_occupancy.png,ok,329986,2026-07-19 16:15:25

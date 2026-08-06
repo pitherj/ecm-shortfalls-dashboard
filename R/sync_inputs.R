@@ -88,6 +88,8 @@ data_files <- c(
   "hutchinsonian/hutchinsonian_ecozone_sample_counts.csv",
   "eltonian/eltonian_summary.csv",
   "eltonian/eltonian_genus_occurrence_counts.csv",
+  "eltonian/eltonian_sample_type_tally_canada.csv",
+  "eltonian/eltonian_genbank_tissue_tally_canada.csv",
   "checkpoints/gf_global_comparator_cheap.csv"   # GlobalFungi-WIDE comparators (12,970 SH etc.)
 )
 
@@ -190,6 +192,8 @@ if (requireNamespace("jsonlite", quietly = TRUE)) {
   hsum <- rd("hutchinsonian", "hutchinsonian_ecozone_summary.csv")
   elts <- rd("eltonian", "eltonian_summary.csv")
   egen <- rd("eltonian", "eltonian_genus_occurrence_counts.csv")
+  gfst <- rd("eltonian", "eltonian_sample_type_tally_canada.csv")     # GF host-info tissue source
+  gbtt <- rd("eltonian", "eltonian_genbank_tissue_tally_canada.csv")  # GenBank host-info coverage
   gfw  <- rd("checkpoints", "gf_global_comparator_cheap.csv")   # GlobalFungi-wide
 
   sh_total <- num(gv(linn, "Unique UNITE v10 SH codes (combined dataset, all records)"))
@@ -254,6 +258,11 @@ if (requireNamespace("jsonlite", quietly = TRUE)) {
       elt_named_host_glob = num(gv(elts, "Named EcM fungal species with >= 1 documented host species (global scope; GlobalFungi root + GenBank worldwide)")),
       elt_host_canada = num(gv(elts, "Canadian host species with >= 1 observed EcM-fungus association in Canada (paired with fungal genus)")),
       elt_host_denom = num(gv(elts, "Canadian EcM host plant species (denominator: BIEN-based native list)")),
+      # Sample/record-level host-information coverage (fungal, not host, perspective)
+      elt_gf_samples_total = num(gv(elts, "GlobalFungi samples in Canada with >= 1 EcM fungal SH code detected")),
+      elt_gf_host_samples = if (!is.null(gfst)) sum(gfst$n_samples, na.rm = TRUE) else NA,
+      elt_gb_total = if (!is.null(gbtt)) gbtt$n[gbtt$category == "Total EcM fungal records"][1] else NA,
+      elt_gb_host = if (!is.null(gbtt)) gbtt$n[gbtt$category == "Records with host information"][1] else NA,
       # Denominators for percent-of-total bar charts (see charts.js hbars()).
       darw_myco_total = num(gv(darw, "MycoCosm records matching our EcM genera")),
       elt_pairs_total = if (!is.null(egen)) sum(egen$n_occurrences, na.rm = TRUE) else NA,
@@ -317,7 +326,12 @@ if (requireNamespace("jsonlite", quietly = TRUE)) {
       elt_top_pairs = if (!is.null(egen)) {
         e <- egen[order(-egen$n_occurrences), ][seq_len(min(20, nrow(egen))), ]
         lapply(seq_len(nrow(e)), function(i) list(label = paste0(e$host_genus[i], " × ", e$fungal_genus[i]),
-          value = e$n_occurrences[i])) } else list()
+          value = e$n_occurrences[i])) } else list(),
+      # Tissue source for GlobalFungi samples that DO carry a dominant_plant_species
+      # entry: soil implies an inferred host, root a directly-attributable one.
+      elt_gf_tissue = if (!is.null(gfst)) {
+        t <- gfst[order(-gfst$n_samples), ]
+        lapply(seq_len(nrow(t)), function(i) list(label = clean(t$sample_type[i]), value = t$n_samples[i])) } else list()
     ),
     summaries = list(
       linnean = rows(linn), prestonian = rows(pres), darwinian = rows(darw), eltonian = rows(elts)

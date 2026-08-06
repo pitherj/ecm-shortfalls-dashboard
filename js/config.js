@@ -312,6 +312,68 @@ const SHORTFALLS = [
     ],
     detail(host, D) {
       const T = D.totals;
+      const MISS = "#9e9e9e";   // shared "missing/no info" grey, matches Linnean/Darwinian donuts
+
+      // ---- Recording the host: how reliable is the evidence? (the fungal, not
+      // plant-host, perspective -- how often can a detected fungus actually be
+      // pinned to a host, and how confidently).
+      const gfTotal = T.elt_gf_samples_total, gfHost = T.elt_gf_host_samples,
+            gfNoHost = gfTotal - gfHost;
+      const gbTotal = T.elt_gb_total, gbHost = T.elt_gb_host, gbNoHost = gbTotal - gbHost;
+      const canNoHost = T.sp_named - T.elt_named_host_can,
+            globNoHost = T.sp_named - T.elt_named_host_glob;
+      host.appendChild(el("div.subhead",
+        { text: "Recording the host: how reliable is the evidence?" }));
+      host.appendChild(el("div.detail-grid", null, [
+        withNote(card("GlobalFungi samples: host information recorded",
+          donut([
+            { label: "Recorded", value: gfHost, color: "#2166ac" },
+            { label: "Missing", value: gfNoHost, color: MISS }
+          ], { centerTop: fmt.pct(100 * gfHost / gfTotal), centerBottom: "recorded" })),
+          `Of the ${fmt.n(gfTotal)} GlobalFungi samples in Canada with at least one EcM fungal ` +
+          "detection, this shows how many carry a “dominant plant species” entry — the metadata " +
+          "field a potential host is read from — versus how many do not."),
+        withNote(card("GenBank records: host taxon recorded",
+          donut([
+            { label: "Recorded", value: gbHost, color: "#d95f02" },
+            { label: "Missing", value: gbNoHost, color: MISS }
+          ], { centerTop: fmt.pct(100 * gbHost / gbTotal), centerBottom: "recorded" })),
+          `Of the ${fmt.n(gbTotal)} GenBank EcM fungal records for Canada, this shows how many ` +
+          "carry a value in the structured “host” field versus how many do not.")
+      ]));
+      host.appendChild(withNote(card("Of GlobalFungi samples with host information, source tissue",
+        hbars(D.charts.elt_gf_tissue, { accent: this.color, max: gfHost, valueFmt: pctOf(gfHost, "samples") })),
+        "Among the GlobalFungi samples that do carry a dominant-plant-species entry, the sample " +
+        "type it was recorded from. A soil sample only lets the host be inferred as the nearest " +
+        "plant; a root sample lets the host be attributed directly."));
+      host.appendChild(el("div.detail-grid", null, [
+        withNote(card("Named EcM fungal species with host information — Canada",
+          donut([
+            { label: "Has host info", value: T.elt_named_host_can, color: this.color },
+            { label: "No host info", value: canNoHost, color: MISS }
+          ], { centerTop: fmt.pct(100 * T.elt_named_host_can / T.sp_named), centerBottom: "have host info" })),
+          `Of the ${fmt.n(T.sp_named)} named EcM fungal species detected in Canada, how many have ` +
+          "at least one documented host species from records within Canada."),
+        withNote(card("Named EcM fungal species with host information — documented anywhere",
+          donut([
+            { label: "Has host info", value: T.elt_named_host_glob, color: this.color },
+            { label: "No host info", value: globNoHost, color: MISS }
+          ], { centerTop: fmt.pct(100 * T.elt_named_host_glob / T.sp_named), centerBottom: "have host info" })),
+          `The same ${fmt.n(T.sp_named)} named species, now counting a documented host from ` +
+          "GlobalFungi root samples or GenBank records anywhere in the world, not just Canada.")
+      ]));
+      host.appendChild(note(
+        `Of the <b>${fmt.n(gfTotal)}</b> GlobalFungi samples with an EcM fungal detection, ` +
+        `<b>${fmt.pct(100 * gfNoHost / gfTotal)}</b> lack any recorded dominant plant species. ` +
+        `Where a species is recorded, <b>${fmt.pct(100 * D.charts.elt_gf_tissue.find(t => t.label === "Soil")?.value / gfHost)}</b> ` +
+        `came from soil (host inferred) and <b>${fmt.pct(100 * D.charts.elt_gf_tissue.find(t => t.label === "Root")?.value / gfHost)}</b> ` +
+        `from root tissue (host directly attributable). Among <b>${fmt.n(gbTotal)}</b> GenBank EcM ` +
+        `fungal records, <b>${fmt.pct(100 * gbNoHost / gbTotal)}</b> lack host-taxon information. ` +
+        `Host information is absent in Canada for <b>${fmt.pct(100 * canNoHost / T.sp_named)}</b> of ` +
+        `the <b>${fmt.n(T.sp_named)}</b> named species detected here, and ` +
+        `<b>${fmt.pct(100 * globNoHost / T.sp_named)}</b> have no host documented anywhere.`,
+        this.color));
+
       // Figure 4, split into tree vs non-tree hosts: for each group, a richness
       // map and a data-coverage map, each its own zoomable Mercator raster.
       const richNote = grp =>

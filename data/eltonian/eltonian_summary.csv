@@ -1,4 +1,5 @@
 metric,value
+GlobalFungi samples in Canada with >= 1 EcM fungal SH code detected,1469
 Canadian EcM host plant species (denominator: BIEN-based native list),272
 Canadian EcM host genera (denominator: BIEN-based native list),60
 Canadian host species with >= 1 observed EcM-fungus association in Canada (paired with fungal genus),28
