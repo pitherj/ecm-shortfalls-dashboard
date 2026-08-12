@@ -31,12 +31,12 @@ Empty cells in full host-genus x fungal-genus matrix (no observed pair),7181
 % of full host-genus x fungal-genus matrix cells empty,96.52
 Observed host-genus x fungal-genus pairs supported by exactly 1 occurrence (sample/record),49
 % of observed host-genus x fungal-genus pairs supported by exactly 1 occurrence,18.9
-Canadian host species recorded as hosts in GlobalFungi root samples anywhere in the world,27
-% of Canadian host species with any global GlobalFungi root record,9.9
+Canadian host species recorded as hosts in GlobalFungi root samples anywhere in the world,37
+% of Canadian host species with any global GlobalFungi root record,13.6
 Canadian host species recorded as hosts in GenBank EcM records anywhere in the world,36
-Canadian host species with documented global EcM-species associations (GlobalFungi root samples),25
-Canadian EcM species with documented global host associations (GlobalFungi root samples),459
+Canadian host species with documented global EcM-species associations (GlobalFungi root samples),35
+Canadian EcM species with documented global host associations (GlobalFungi root samples),489
 Named EcM fungal species with >= 1 documented host species (Canada scope),295
 Max host species documented for any named EcM fungal species (Canada scope),10
-Named EcM fungal species with >= 1 documented host species (global scope; GlobalFungi root + GenBank worldwide),618
-Max host species documented for any named EcM fungal species (global scope),12
+Named EcM fungal species with >= 1 documented host species (global scope; GlobalFungi root + GenBank worldwide),646
+Max host species documented for any named EcM fungal species (global scope),21
