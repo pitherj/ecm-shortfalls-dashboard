@@ -321,6 +321,8 @@ const SHORTFALLS = [
       const gbTotal = T.elt_gb_total, gbHost = T.elt_gb_host, gbNoHost = gbTotal - gbHost;
       const canNoHost = T.sp_named - T.elt_named_host_can,
             globNoHost = T.sp_named - T.elt_named_host_glob;
+      // Sample count for one GlobalFungi sample_type, 0 if that type is absent.
+      const tissueN = lbl => D.charts.elt_gf_tissue.find(t => t.label === lbl)?.value || 0;
       host.appendChild(el("div.subhead",
         { text: "How prevalent is host information in the source data?" }));
       host.appendChild(el("div.detail-grid", null, [
@@ -340,11 +342,26 @@ const SHORTFALLS = [
           `Of the ${fmt.n(gbTotal)} GenBank EcM fungal records for Canada, this shows how many ` +
           "carry a value in the structured “host” field versus how many do not.")
       ]));
-      host.appendChild(withNote(card("Of GlobalFungi samples with host information, source tissue",
-        hbars(D.charts.elt_gf_tissue, { accent: this.color, max: gfHost, valueFmt: pctOf(gfHost, "samples") })),
-        "Among the GlobalFungi samples that do carry a dominant-plant-species entry, the sample " +
-        "type it was recorded from. A soil sample only lets the host be inferred as the nearest " +
-        "plant; a root sample lets the host be attributed directly."));
+      host.appendChild(el("div.detail-grid", null, [
+        withNote(card("Of GlobalFungi samples with host information, source tissue",
+          hbars(D.charts.elt_gf_tissue, { accent: this.color, max: gfHost, valueFmt: pctOf(gfHost, "samples") })),
+          "Among the GlobalFungi samples that do carry a dominant-plant-species entry, the sample " +
+          "type it was recorded from. A soil sample only lets the host be inferred as the nearest " +
+          "plant; a root sample lets the host be attributed directly."),
+        withNote(card("Of GenBank records with host information, source tissue",
+          hbars(D.charts.elt_gb_tissue, { accent: this.color, max: gbHost, valueFmt: pctOf(gbHost, "records") })),
+          "Among the GenBank records that do carry a host taxon, the material named in the " +
+          "free-text isolation-source field. GenBank has no controlled sample-type field, so these " +
+          "categories are assigned by keyword.")
+      ]));
+      host.appendChild(withNote(card("GenBank host records, by tissue provenance",
+        hbars([
+          { label: "Root or ectomycorrhizal material", value: T.elt_gb_root, color: this.color },
+          { label: "Tissue provenance unknown", value: T.elt_gb_unknown, color: MISS },
+          { label: "Demonstrably non-root", value: T.elt_gb_nonroot, color: "#d95f02" }
+        ], { max: gbHost, valueFmt: pctOf(gbHost, "records") })),
+        "The same GenBank records grouped three ways. Only the root-derived group contributes a " +
+        "host association; the other two are excluded from every association result on this page."));
       host.appendChild(el("div.detail-grid", null, [
         withNote(card("Named EcM fungal species with host information — Canada",
           donut([
@@ -361,13 +378,54 @@ const SHORTFALLS = [
           `The same ${fmt.n(T.sp_named)} named species, now counting a documented host from ` +
           "GlobalFungi root samples or GenBank records anywhere in the world, not just Canada.")
       ]));
+
+      // ---- How strong is the evidence behind each documented association?
+      // A sample that names one candidate plant pins the host; one that names
+      // eight only narrows it to eight.
+      host.appendChild(el("div.subhead",
+        { text: "How strong is the evidence behind each association?" }));
+      // Labels are kept short: the bar-label column ellipsises past roughly
+      // 32 characters, and the full text then only shows on hover.
+      const sensRows = [
+        { label: "Host species with a partner",
+          n: T.elt_sens_hosts_unamb, of: T.elt_sens_hosts_all },
+        { label: "EcM fungal species with a host",
+          n: T.elt_sens_named_unamb, of: T.elt_sens_named_all },
+        { label: "Host × fungal-species pairs",
+          n: T.elt_sens_pairs_unamb, of: T.elt_sens_pairs_all }
+      ].map(d => Object.assign({}, d, { value: 100 * d.n / d.of }));
+      host.appendChild(el("div.detail-grid", null, [
+        withNote(card("Host × fungal-species pairs, by strength of evidence",
+          donut([
+            { label: "Single candidate plant named", value: T.elt_pairs_unamb, color: this.color },
+            { label: "Several candidate plants named", value: T.elt_pairs_amb, color: MISS }
+          ], { centerTop: fmt.pct(T.elt_pairs_unamb_pct), centerBottom: "single-plant" })),
+          "Of the documented host × fungal-species pairs, how many rest on at least one record " +
+          "whose source named a single candidate plant, versus those resting entirely on records " +
+          "that named several co-occurring plants."),
+        withNote(card("Retained if only single-plant records are counted",
+          hbars(sensRows, { accent: this.color, max: 100,
+            valueFmt: (v, d) => `${fmt.n(d.n)} of ${fmt.n(d.of)} (${Math.round(v)}%)` })),
+          "Each headline count recomputed using only records whose source named a single " +
+          "candidate plant, as a proportion of the same count using all records.")
+      ]));
+
+      // The soil/root shares are taken over the plant-substrate samples only
+      // (soil + root), so the two figures sum to 100. The remaining samples
+      // with a dominant-plant label are lichen samples, whose label does not
+      // indicate a root-associated host. Same denominator as the manuscript.
+      const gfSoil = tissueN("Soil"), gfRoot = tissueN("Root"),
+            gfPlant = gfSoil + gfRoot;
       host.appendChild(note(
         `Of the <b>${fmt.n(gfTotal)}</b> GlobalFungi samples with an EcM fungal detection, ` +
         `<b>${fmt.pct(100 * gfNoHost / gfTotal)}</b> lack any recorded dominant plant species. ` +
-        `Where a species is recorded, <b>${fmt.pct(100 * D.charts.elt_gf_tissue.find(t => t.label === "Soil")?.value / gfHost)}</b> ` +
-        `came from soil (host inferred) and <b>${fmt.pct(100 * D.charts.elt_gf_tissue.find(t => t.label === "Root")?.value / gfHost)}</b> ` +
+        `Of the <b>${fmt.n(gfPlant)}</b> that record one and come from a plant-bearing substrate, ` +
+        `<b>${fmt.pct(100 * gfSoil / gfPlant)}</b> ` +
+        `came from soil (host inferred) and <b>${fmt.pct(100 * gfRoot / gfPlant)}</b> ` +
         `from root tissue (host directly attributable). Among <b>${fmt.n(gbTotal)}</b> GenBank EcM ` +
-        `fungal records, <b>${fmt.pct(100 * gbNoHost / gbTotal)}</b> lack host-taxon information. ` +
+        `fungal records, <b>${fmt.pct(100 * gbNoHost / gbTotal)}</b> lack host-taxon information, ` +
+        `and of the <b>${fmt.n(gbHost)}</b> that carry one, ` +
+        `<b>${fmt.pct(100 * T.elt_gb_root / gbHost)}</b> are root-derived. ` +
         `Host information is absent in Canada for <b>${fmt.pct(100 * canNoHost / T.sp_named)}</b> of ` +
         `the <b>${fmt.n(T.sp_named)}</b> named species detected here, and ` +
         `<b>${fmt.pct(100 * globNoHost / T.sp_named)}</b> have no host documented anywhere.`,

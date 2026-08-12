@@ -1,0 +1,9 @@
+metric,value
+Canadian host species with >= 1 documented association (all evidence),20
+Canadian host species with >= 1 documented association (unambiguous evidence only),18
+"Eltonian host shortfall, hosts lacking any association (all evidence)",252
+"Eltonian host shortfall, hosts lacking any association (unambiguous evidence only)",254
+Named EcM fungal species with >= 1 documented host (all evidence),295
+Named EcM fungal species with >= 1 documented host (unambiguous evidence only),175
+Host x named-species pairs (all evidence),1105
+Host x named-species pairs (unambiguous evidence only),214

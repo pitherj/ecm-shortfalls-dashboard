@@ -90,6 +90,16 @@ data_files <- c(
   "eltonian/eltonian_genus_occurrence_counts.csv",
   "eltonian/eltonian_sample_type_tally_canada.csv",
   "eltonian/eltonian_genbank_tissue_tally_canada.csv",
+  # Added with the 2026-08 revision, which restricted both databases to
+  # root-derived evidence and stopped discarding all but the first plant named
+  # in a multi-plant host label. See the manuscript repo's
+  # revision_01/CHANGES_revision_01.md.
+  "eltonian/eltonian_pair_confidence.csv",           # unambiguous vs ambiguous pairs
+  "eltonian/eltonian_sensitivity_confidence.csv",    # headline numbers, unambiguous only
+  # NOTE: the geographic-possibility outputs (data_derived/geo_possibility/) are
+  # deliberately NOT synced. They qualify the host x fungal-species matrix fill
+  # rate, which this dashboard stopped displaying in Aug 2026. Add them here if
+  # that statistic ever returns.
   "checkpoints/gf_global_comparator_cheap.csv"   # GlobalFungi-WIDE comparators (12,970 SH etc.)
 )
 
@@ -194,7 +204,19 @@ if (requireNamespace("jsonlite", quietly = TRUE)) {
   egen <- rd("eltonian", "eltonian_genus_occurrence_counts.csv")
   gfst <- rd("eltonian", "eltonian_sample_type_tally_canada.csv")     # GF host-info tissue source
   gbtt <- rd("eltonian", "eltonian_genbank_tissue_tally_canada.csv")  # GenBank host-info coverage
+  pcnf <- rd("eltonian", "eltonian_pair_confidence.csv")        # unambiguous vs ambiguous pairs
+  psen <- rd("eltonian", "eltonian_sensitivity_confidence.csv") # same numbers, unambiguous only
   gfw  <- rd("checkpoints", "gf_global_comparator_cheap.csv")   # GlobalFungi-wide
+
+  # Helpers for the three tables added with the 2026-08 revision.
+  # gbcat(): a GenBank tissue-tally category count.
+  # pcv():   pair count for one confidence level of the named-species pair set.
+  gbcat <- function(cat) if (!is.null(gbtt)) {
+    x <- gbtt$n[gbtt$category == cat]; if (length(x)) x[[1]] else NA } else NA
+  pcv <- function(conf, col = "n_pairs") if (!is.null(pcnf)) {
+    x <- pcnf[[col]][pcnf$pair_set == "host x named fungal species" &
+                     pcnf$pair_confidence == conf]
+    if (length(x)) x[[1]] else NA } else NA
 
   sh_total <- num(gv(linn, "Unique UNITE v10 SH codes (combined dataset, all records)"))
   sh_named <- num(gv(linn, "Named-species SH codes: total unique across GF + GenBank (regardless of coords)"))
@@ -261,8 +283,25 @@ if (requireNamespace("jsonlite", quietly = TRUE)) {
       # Sample/record-level host-information coverage (fungal, not host, perspective)
       elt_gf_samples_total = num(gv(elts, "GlobalFungi samples in Canada with >= 1 EcM fungal SH code detected")),
       elt_gf_host_samples = if (!is.null(gfst)) sum(gfst$n_samples, na.rm = TRUE) else NA,
-      elt_gb_total = if (!is.null(gbtt)) gbtt$n[gbtt$category == "Total EcM fungal records"][1] else NA,
-      elt_gb_host = if (!is.null(gbtt)) gbtt$n[gbtt$category == "Records with host information"][1] else NA,
+      elt_gb_total = gbcat("Total EcM fungal records"),
+      elt_gb_host = gbcat("Records with host information"),
+      # ---- Added with the 2026-08 revision -------------------------------
+      # Tissue provenance of the GenBank records that DO carry a host name.
+      # Only the root-derived ones now contribute a host association.
+      elt_gb_root    = gbcat("Root-derived (retained for host associations)"),
+      elt_gb_unknown = gbcat("Tissue provenance unknown (blank or habitat only)"),
+      elt_gb_nonroot = gbcat("Demonstrably non-root (soil, rhizosphere, duff, other tissue)"),
+      # Evidence quality of the observed host x named-fungal-species pairs.
+      elt_pairs_unamb     = pcv("unambiguous"),
+      elt_pairs_amb       = pcv("ambiguous"),
+      elt_pairs_unamb_pct = pcv("unambiguous", "pct"),
+      # The same headline numbers recomputed from unambiguous evidence only.
+      elt_sens_hosts_all   = num(gv(psen, "Canadian host species with >= 1 documented association (all evidence)")),
+      elt_sens_hosts_unamb = num(gv(psen, "Canadian host species with >= 1 documented association (unambiguous evidence only)")),
+      elt_sens_named_all   = num(gv(psen, "Named EcM fungal species with >= 1 documented host (all evidence)")),
+      elt_sens_named_unamb = num(gv(psen, "Named EcM fungal species with >= 1 documented host (unambiguous evidence only)")),
+      elt_sens_pairs_all   = num(gv(psen, "Host x named-species pairs (all evidence)")),
+      elt_sens_pairs_unamb = num(gv(psen, "Host x named-species pairs (unambiguous evidence only)")),
       # Denominators for percent-of-total bar charts (see charts.js hbars()).
       darw_myco_total = num(gv(darw, "MycoCosm records matching our EcM genera")),
       elt_pairs_total = if (!is.null(egen)) sum(egen$n_occurrences, na.rm = TRUE) else NA,
@@ -331,7 +370,19 @@ if (requireNamespace("jsonlite", quietly = TRUE)) {
       # entry: soil implies an inferred host, root a directly-attributable one.
       elt_gf_tissue = if (!is.null(gfst)) {
         t <- gfst[order(-gfst$n_samples), ]
-        lapply(seq_len(nrow(t)), function(i) list(label = clean(t$sample_type[i]), value = t$n_samples[i])) } else list()
+        lapply(seq_len(nrow(t)), function(i) list(label = clean(t$sample_type[i]), value = t$n_samples[i])) } else list(),
+      # ---- Added with the 2026-08 revision --------------------------------
+      # Tissue provenance of the GenBank records that carry a host name. The
+      # two roll-up rows and the two header rows are dropped so this is a
+      # clean partition of the host-bearing records, matching elt_gf_tissue.
+      elt_gb_tissue = if (!is.null(gbtt)) {
+        drop <- c("Total EcM fungal records", "Records with host information",
+                  "Root-derived (retained for host associations)",
+                  "Tissue provenance unknown (blank or habitat only)",
+                  "Demonstrably non-root (soil, rhizosphere, duff, other tissue)")
+        t <- gbtt[!gbtt$category %in% drop, ]
+        t <- t[order(-t$n), ]
+        lapply(seq_len(nrow(t)), function(i) list(label = t$category[i], value = t$n[i])) } else list()
     ),
     summaries = list(
       linnean = rows(linn), prestonian = rows(pres), darwinian = rows(darw), eltonian = rows(elts)

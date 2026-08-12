@@ -8,7 +8,15 @@ An interactive, dependency-light **JavaScript** dashboard that summarizes the
 biodiversity data shortfalls for ectomycorrhizal fungi in Canada"* (Eckert et al.,
 submitted to *FACETS*).
 
-It is a **companion to the paper, not a re-analysis**: all outputs are read from the same pipeline that generate the manuscript's outputs, so the dashboard cannot drift from the paper. The design is purposefully lightweight, and deployed as a static site that will be **refreshed on a routine schedule (target:
+It is a **companion to the paper, not a re-analysis**: all outputs are read from the same pipeline that generate the manuscript's outputs, so the dashboard cannot drift from the paper.
+
+> **Note (August 2026).** The current snapshot reflects the **first revision** of the
+> analysis, not the version submitted to *FACETS*. The Eltonian numbers therefore
+> differ from the submitted manuscript: host associations are now restricted to
+> root-derived records in **both** source databases, and host labels naming several
+> plants are no longer truncated to the first plant. See
+> `revision_01/CHANGES_revision_01.md` in the
+> [manuscript repository](https://github.com/pitherj/Canada_ecto_shortfalls). The design is purposefully lightweight, and deployed as a static site that will be **refreshed on a routine schedule (target:
 twice yearly)** as the underlying data sources are updated.
 
 ---
