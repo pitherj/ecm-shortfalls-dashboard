@@ -12,7 +12,7 @@
    REQUIRED" instead of the map. Esri's Light Gray Canvas is a similarly plain,
    light-grey style that still requires no account or key, so it was swapped
    in as a drop-in replacement. If this ever needs to change again, everything
-   lives in the ESRI_GRAY_* constants and addBasemap() just below.           */
+   lives in the ESRI_GRAY_* constants and addBasemap() just below.
 
    NOTE ON PROJECTION: the manuscript's static maps use Canada Albers Equal Area
    Conic. This interactive map is Web Mercator (the only practical projection for
