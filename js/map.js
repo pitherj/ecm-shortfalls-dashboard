@@ -3,8 +3,16 @@
    -----------------------------------------------------------------------------
    Draws the ~1,600 unique EcM sampling sites from ECM_DATA.map_points, coloured
    by data source (GlobalFungi vs GenBank), with a source toggle and a legend.
-   Uses CartoDB Positron tiles (needs internet); the markers themselves are
-   vector circles, so no marker images are required.
+   Uses Esri's free "Light Gray Canvas" basemap tiles (needs internet); the
+   markers themselves are vector circles, so no marker images are required.
+
+   NOTE ON BASEMAP CHOICE: this used to use CartoDB's "Positron" tiles, which
+   were free with no signup. CARTO discontinued free anonymous access to that
+   service in 2026 -- it now returns a placeholder tile stamped "API KEY
+   REQUIRED" instead of the map. Esri's Light Gray Canvas is a similarly plain,
+   light-grey style that still requires no account or key, so it was swapped
+   in as a drop-in replacement. If this ever needs to change again, everything
+   lives in the ESRI_GRAY_* constants and addBasemap() just below.           */
 
    NOTE ON PROJECTION: the manuscript's static maps use Canada Albers Equal Area
    Conic. This interactive map is Web Mercator (the only practical projection for
@@ -17,8 +25,22 @@ const SRC_STYLE = {
   GB: { color: "#d95f02", label: "GenBank" }
 };
 
-const POSITRON = "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png";
-const POSITRON_OPTS = { attribution: '&copy; OpenStreetMap contributors &copy; CARTO', subdomains: "abcd", maxZoom: 19 };
+// Base (land/water fill, no labels) and reference (place names, roads, borders)
+// -- Esri serves these as two separate tile layers that get stacked, together
+// giving the same look CARTO's single-layer Positron style used to provide.
+const ESRI_GRAY_BASE = "https://{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}";
+const ESRI_GRAY_LABELS = "https://{s}.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}";
+const ESRI_GRAY_OPTS = {
+  attribution: "Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ",
+  subdomains: ["server", "services"],
+  maxNativeZoom: 16,   // Esri only renders real tiles up to zoom 16...
+  maxZoom: 19           // ...beyond that Leaflet stretches the zoom-16 tile, same as before.
+};
+/* addBasemap(): add both Esri Light Gray layers, in the right stacking order. */
+function addBasemap(map) {
+  L.tileLayer(ESRI_GRAY_BASE, ESRI_GRAY_OPTS).addTo(map);
+  L.tileLayer(ESRI_GRAY_LABELS, ESRI_GRAY_OPTS).addTo(map);
+}
 
 // Canada Albers Equal Area Conic -- the manuscript's projection. Used for VECTOR
 // maps so areas are not distorted (unlike Web Mercator). Requires proj4 +
@@ -75,7 +97,7 @@ function buildSamplingMap(container) {
     "Zoomable map of ectomycorrhizal fungal sampling locations across Canada, " +
     "coloured by data source (GlobalFungi and GenBank).");
 
-  L.tileLayer(POSITRON, POSITRON_OPTS).addTo(map);
+  addBasemap(map);
 
   const pts = (window.ECM_DATA && window.ECM_DATA.map_points) || [];
   const layers = { GF: L.layerGroup(), GB: L.layerGroup() };
@@ -128,7 +150,7 @@ function buildRasterMap(container, cfg, opts) {
     return;
   }
   const map = L.map(container, { scrollWheelZoom: true, minZoom: 2 });
-  L.tileLayer(POSITRON, POSITRON_OPTS).addTo(map);
+  addBasemap(map);
   L.imageOverlay(cfg.png, cfg.bounds, {
     opacity: opts.opacity || 0.85,
     alt: opts.alt || (cfg.label + " across Canada, shown as a colour gradient from " +
